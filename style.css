@@ -36,7 +36,6 @@ button:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* 入力欄 */
 input[type="text"], textarea, input[type="file"] {
   width: 100%;
   padding: 10px;
@@ -46,7 +45,6 @@ input[type="text"], textarea, input[type="file"] {
   box-sizing: border-box;
 }
 
-/* リストアイテム */
 .list-item {
   border: 1px solid #ddd;
   padding: 15px;
@@ -74,21 +72,21 @@ input[type="text"], textarea, input[type="file"] {
   margin-left: 10px;
 }
 
-/* 図鑑カード */
 .photo-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px; /* カード間の隙間 */
 }
 
 .photo-card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  width: 220px;
-  text-align: center;
+  border: 1px solid #ddd;
   padding: 12px;
+  margin: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 220px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  background: white;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -102,17 +100,4 @@ input[type="text"], textarea, input[type="file"] {
   height: auto;
   border-radius: 6px;
   margin-bottom: 8px;
-}
-
-/* スマホ対応 */
-@media (max-width: 600px) {
-  .photo-card {
-    width: 90%; /* 画面幅に合わせる */
-  }
-  
-  button {
-    width: 100%;
-    margin: 8px 0;
-    font-size: 14px;
-  }
 }
