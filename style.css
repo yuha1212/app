@@ -1,25 +1,30 @@
-/* 画面幅が600px以下の場合 */
+/* 画面幅が600px以下の場合のスマホ用スタイル */
 @media (max-width: 600px) {
   body {
-    padding: 10px; /* 余白を狭くする */
+    padding: 10px; /* 余白を少なめに */
   }
 
   header h1 {
-    font-size: 22px; /* 見出しを小さく */
+    font-size: 22px; /* 見出しを少し小さく */
   }
 
   button {
     width: 100%;      /* ボタンを横幅いっぱいに */
-    margin: 8px 0;    /* 上下の間隔に調整 */
+    margin: 8px 0;    /* 上下に間隔 */
+    font-size: 14px;  /* 少し小さく */
   }
 
   .photo-list {
-    flex-direction: column; /* 写真カードを縦並びに */
+    flex-direction: column; /* 写真カードを縦並び */
     align-items: center;
   }
 
   .photo-card {
-    width: 90%; /* カードを画面幅に合わせる */
+    width: 90%; /* 画面幅に合わせる */
     margin: 10px 0;
+  }
+
+  input[type="text"], textarea {
+    padding: 8px; /* 少し小さめに調整 */
   }
 }
