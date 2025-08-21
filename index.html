@@ -7,16 +7,45 @@
   <style>
     body {
       font-family: 'Kosugi Maru', sans-serif;
+      background-color: #e6f2fa; /* 薄い背景色 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 60px;  /* 大きめ */
+      text-align: center;
+      margin-bottom: 40px;
+      color: rgb(52, 152, 219);
+      line-height: 1.2;
+    }
+
+    .btn {
+      font-size: 28px;
+      padding: 15px 30px;
+      margin: 15px;
+      border: 2px solid #2c3e50;
+      border-radius: 10px;
+      background-color: #a8e6a3;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      width: 220px;  /* ボタン幅をそろえる */
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #81d38a;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1 style="font-size:85px; text-align:center; margin-bottom:5px; color: rgb(52, 152, 219);">
-      図鑑作成アプリ
-    </h1>
-  </header>
-  <button onclick="location.href='/app/create_zukan.html'">➕ 新しい図鑑を作る</button>
-  <button onclick="location.href='/app/zukan_list.html'">📚 図鑑一覧</button>
+  <h1>図鑑作成<br>アプリ</h1>
+  <button class="btn" onclick="location.href='/app/zukan_list.html'">図鑑一覧</button>
+  <button class="btn" onclick="location.href='/app/create_zukan.html'">新規作成</button>
 </body>
 </html>
