@@ -20,6 +20,8 @@
         text-align: center;
         margin-bottom: 5px;
         color: rgb(52, 152, 219);
+        white-space: normal; /* 自動改行を許可 */
+        word-break: keep-all; /* 単語の途中で折り返さない */
       }
       .btn {
         font-size: 22px;
@@ -47,16 +49,16 @@
         min-height: 100vh;
         margin: 0;
         background-color: #e6f2fa;
-        padding: 20px; /* 余白を追加 */
+        padding: 20px;
         box-sizing: border-box;
       }
       
       h1 {
-        font-size: 50px;   /* 文字サイズを少し小さく */
+        font-size: 50px;
         font-weight: bold;
         line-height: 1.2;
         color: rgb(52, 152, 219);
-        margin-bottom: 50px;  /* ボタンとの間隔を調整 */
+        margin-bottom: 50px;
         text-align: center;
       }
 
@@ -64,8 +66,8 @@
         display: block;
         width: 90%;
         max-width: 400px;
-        font-size: 28px;   /* 文字を控えめに */
-        padding: 20px 0;   /* ボタンの高さを少し縮小 */
+        font-size: 28px;
+        padding: 20px 0;
         margin: 20px 0;
         border-radius: 20px;
         border: 3px solid #2c3e50;
@@ -81,7 +83,7 @@
   </style>
 </head>
 <body>
-  <h1>図鑑作成<br>アプリ</h1>
+  <h1>図鑑作成アプリ</h1> <!-- 改行なし -->
   <button class="btn" onclick="location.href='/app/create_zukan.html'">＋新規作成</button>
   <button class="btn" onclick="location.href='/app/zukan_list.html'">図鑑一覧</button>
 </body>
