@@ -40,7 +40,7 @@
           `;
           photoList.appendChild(card);
 
-          if (photo.lat && photo.lng) {
+          if (photo.lat && photo.lng && photo.showGps) {
             const map = L.map(`map-${index}`).setView([photo.lat, photo.lng], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: '&copy; OpenStreetMap contributors'
