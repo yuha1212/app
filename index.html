@@ -16,14 +16,13 @@
     /* ------- PC用 ------- */
     @media (min-width: 601px) {
       h1 {
-        font-size: clamp(40px, 6vw, 85px); /* 画面幅に応じて縮小 */
+        font-size: clamp(40px, 6vw, 85px); /* 画面幅に応じて自動縮小 */
         text-align: center;                 /* 中央揃え */
-        margin: 0 auto 5px auto;
+        margin: 0 auto 5px auto;            /* 上下マージン */
         color: rgb(52, 152, 219);
         white-space: normal;                /* 改行を許可 */
-        word-break: keep-all;               /* 単語の途中で折れない */
+        word-break: keep-all;               /* 単語途中で折れない */
       }
-    }
       
       .btn {
         font-size: 22px;
