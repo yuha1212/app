@@ -10,79 +10,50 @@
       font-family: 'Kosugi Maru', sans-serif;
       background-color: #e6f2fa;
       margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center; /* 横中央 */
+      align-items: center;     /* 縦中央 */
+      flex-direction: column;
       text-align: center;
     }
 
-    /* タイトル共通 */
     h1 {
-      text-align: center;
-      margin: 0 auto 5px auto;
-      display: block;
+      font-size: 85px;        /* PC固定サイズ */
       color: rgb(52, 152, 219);
+      margin-bottom: 50px;
     }
 
-    /* ------- PC用 ------- */
-    @media (min-width: 601px) {
-      h1 {
-        font-size: clamp(40px, 6vw, 85px); /* 画面幅に応じて縮小 */
-      }
-
-      .btn {
-        font-size: 22px;
-        padding: 12px 24px;
-        margin: 10px;
-        border-radius: 8px;
-        border: 2px solid #2c3e50;
-        background-color: #5fbf70; /* 濃い緑 */
-        color: #fff;
-        cursor: pointer;
-        transition: 0.3s;
-        display: inline-block;
-      }
-
-      .btn:hover {
-        background-color: #4ea65e; /* ホバーも濃く */
-      }
+    .btn {
+      font-size: 22px;        /* PC固定サイズ */
+      padding: 12px 24px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 2px solid #2c3e50;
+      background-color: #5fbf70;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-block;
     }
 
-    /* ------- スマホ用 ------- */
+    .btn:hover {
+      background-color: #4ea65e;
+    }
+
+    /* スマホ用 */
     @media (max-width: 600px) {
-      body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center; 
-        align-items: center;     
-        min-height: 100vh;
-        margin: 0;
-        background-color: #e6f2fa;
-        padding: 20px;
-        box-sizing: border-box;
-      }
-      
       h1 {
-        font-size: 50px;
-        font-weight: bold;
-        line-height: 1.2;
-        margin-bottom: 50px;
+        font-size: 60px;      /* 少し大きく */
+        margin-bottom: 40px;
       }
 
       .btn {
-        display: block;
+        font-size: 32px;      /* ボタンも大きく */
+        padding: 25px 0;
         width: 90%;
         max-width: 400px;
-        font-size: 28px;
-        padding: 20px 0;
-        margin: 20px 0;
         border-radius: 20px;
-        border: 3px solid #2c3e50;
-        background-color: #5fbf70; /* 濃い緑 */
-        color: #fff;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-
-      .btn:hover {
-        background-color: #4ea65e; /* ホバーも濃く */
       }
     }
   </style>
