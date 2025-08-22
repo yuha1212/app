@@ -36,40 +36,45 @@
     }
 
     /* ------- スマホ用 (幅600px以下) ------- */
-    @media (max-width: 600px) {
-      body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* ←縦方向の中央揃え */
-        align-items: center;     /* ←横方向の中央揃え */
-        height: 100vh;           /* ←全画面高さ */
-        margin: 0;
-      }
-      
-      h1 {
-        font-size: 80px;     /* ←もっと大きく */
-    　　line-height: 1.3;
-    　　color: rgb(52, 152, 219);
-    　　margin-bottom: 50px; /* ←ボタンとの間隔も広め */
-      }
+   @media (max-width: 600px) {
+     body {
+       display: flex;
+       flex-direction: column;
+       justify-content: center; /* 縦中央 */
+       align-items: center;     /* 横中央 */
+       height: 100vh;
+       margin: 0;
+       background-color: #e6f2fa;
+     }
+     
+     h1 {
+       font-size: 95px;   /* ←さらに大きく */
+       font-weight: bold; /* ←太字 */
+       line-height: 1.2;
+       color: rgb(52, 152, 219);
+       margin-bottom: 60px; /* ボタンとの間隔広め */
+       text-align: center;
+     }
 
-      .btn {
-        display: block;
-        width: 300px;        /* ←ボタン幅を広げる */
-    　　font-size: 40px;     /* ←ボタン文字大きめ */
-    　　padding: 25px 0;     /* ←高さをしっかり確保 */
-    　　margin: 20px;        /* ←ボタン間隔も余裕 */
-    　　border-radius: 15px;
-    　　border: 3px solid #2c3e50;
-    　　background-color: #a8e6a3;
-    　　cursor: pointer;
-    　　transition: 0.3s;
-      }
-      
-      .btn:hover {
-        background-color: #81d38a;
-      }
-    }
+     .btn {
+       display: block;
+       width: 80%;         /* ←画面幅の8割 */
+       max-width: 400px;   /* ←大きすぎ防止 */
+       font-size: 48px;    /* ←ボタン文字大きめ */
+       padding: 30px 0;    /* ←高さしっかり */
+       margin: 20px 0;     /* ←ボタン間隔 */
+       border-radius: 20px;
+       border: 3px solid #2c3e50;
+       background-color: #a8e6a3;
+       cursor: pointer;
+       transition: 0.3s;
+     }
+
+     .btn:hover {
+       background-color: #81d38a;
+     }
+   }
+
 
   </style>
 </head>
