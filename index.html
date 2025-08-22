@@ -16,28 +16,27 @@
     /* ------- PC用 ------- */
     @media (min-width: 601px) {
       h1 {
-        font-size: clamp(40px, 6vw, 85px); /* 画面幅に応じて自動縮小 */
-        text-align: center;                 /* 中央揃え */
+        font-size: 85px;
+        text-align: center;
         margin: 0 auto 5px auto;
         color: rgb(52, 152, 219);
-        white-space: normal;                /* 改行を許可 */
-        word-break: keep-all;
       }
-    }
-      
+
       .btn {
         font-size: 22px;
         padding: 12px 24px;
         margin: 10px;
         border-radius: 8px;
         border: 2px solid #2c3e50;
-        background-color: #a8e6a3;
+        background-color: #5fbf70; /* 色を少し濃く */
+        color: #fff;
         cursor: pointer;
         transition: 0.3s;
         display: inline-block;
       }
+
       .btn:hover {
-        background-color: #81d38a;
+        background-color: #4ea65e; /* ホバーも濃く */
       }
     }
 
@@ -73,19 +72,20 @@
         margin: 20px 0;
         border-radius: 20px;
         border: 3px solid #2c3e50;
-        background-color: #a8e6a3;
+        background-color: #5fbf70; /* 色を濃く */
+        color: #fff;
         cursor: pointer;
         transition: 0.3s;
       }
 
       .btn:hover {
-        background-color: #81d38a;
+        background-color: #4ea65e; /* ホバーも濃く */
       }
     }
   </style>
 </head>
 <body>
-  <h1>図鑑作成アプリ</h1> <!-- 改行なし -->
+  <h1>図鑑作成アプリ</h1>
   <button class="btn" onclick="location.href='/app/create_zukan.html'">＋新規作成</button>
   <button class="btn" onclick="location.href='/app/zukan_list.html'">図鑑一覧</button>
 </body>
