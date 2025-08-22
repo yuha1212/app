@@ -13,13 +13,18 @@
       text-align: center;
     }
 
+    /* タイトル共通 */
+    h1 {
+      text-align: center;
+      margin: 0 auto 5px auto;
+      display: block;
+      color: rgb(52, 152, 219);
+    }
+
     /* ------- PC用 ------- */
     @media (min-width: 601px) {
       h1 {
-        font-size: 85px;
-        text-align: center;
-        margin: 0 auto 5px auto;
-        color: rgb(52, 152, 219);
+        font-size: clamp(40px, 6vw, 85px); /* 画面幅に応じて縮小 */
       }
 
       .btn {
@@ -28,7 +33,7 @@
         margin: 10px;
         border-radius: 8px;
         border: 2px solid #2c3e50;
-        background-color: #5fbf70; /* 色を少し濃く */
+        background-color: #5fbf70; /* 濃い緑 */
         color: #fff;
         cursor: pointer;
         transition: 0.3s;
@@ -58,9 +63,7 @@
         font-size: 50px;
         font-weight: bold;
         line-height: 1.2;
-        color: rgb(52, 152, 219);
         margin-bottom: 50px;
-        text-align: center;
       }
 
       .btn {
@@ -72,7 +75,7 @@
         margin: 20px 0;
         border-radius: 20px;
         border: 3px solid #2c3e50;
-        background-color: #5fbf70; /* 色を濃く */
+        background-color: #5fbf70; /* 濃い緑 */
         color: #fff;
         cursor: pointer;
         transition: 0.3s;
