@@ -5,13 +5,100 @@
   <title>新しい図鑑を作る</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
+  <style>
+    /* PC用デフォルトスタイル */
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background-color: white;
+      color: black;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    label, input, button {
+      display: block;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    input {
+      padding: 5px;
+    }
+
+    button {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    /* ===== スマホ用スタイル (幅600px以下) ===== */
+    @media screen and (max-width: 600px) {
+      body {
+        background-color: #ff9933; /* オレンジ背景 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        color: white;
+      }
+
+      header h1 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      label {
+        display: none; /* プレースホルダーで代用するので非表示 */
+      }
+
+      input {
+        width: 80%;
+        max-width: 300px;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+      }
+
+      button {
+        width: 80%;
+        max-width: 300px;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      #btnNext {
+        background-color: white;
+        color: #ff9933;
+      }
+
+      #btnBack {
+        background: none;
+        color: white;
+        text-decoration: underline;
+      }
+    }
+  </style>
 </head>
 <body>
   <header><h1>新しい図鑑を作る</h1></header>
   <label for="zukanName">図鑑の名前を入力してください：</label>
-  <input type="text" id="zukanName" placeholder="例：昆虫図鑑" />
+  <input type="text" id="zukanName" placeholder="図鑑の名前を入力" />
   <button id="btnNext">次へ</button>
   <button id="btnBack">戻る</button>
+
   <script>
     const btnNext = document.getElementById('btnNext');
     const btnBack = document.getElementById('btnBack');
