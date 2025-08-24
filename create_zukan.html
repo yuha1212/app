@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>新しい図鑑を作る</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ←これを追加 -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
   <style>
@@ -10,7 +11,7 @@
     body {
       font-family: sans-serif;
       margin: 20px;
-      background-color: #e6f2fa; /* 今の水色背景 */
+      background-color: #e6f2fa; /* 水色背景 */
       color: black;
     }
 
@@ -37,7 +38,7 @@
     /* ===== スマホ用スタイル (幅600px以下) ===== */
     @media screen and (max-width: 600px) {
       body {
-        background-color: #e6f2fa; /* 水色背景のまま */
+        background-color: #e6f2fa;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -54,7 +55,7 @@
       }
 
       label {
-        display: none; /* プレースホルダーで代用するので非表示 */
+        display: none; /* プレースホルダーで代用 */
       }
 
       input {
