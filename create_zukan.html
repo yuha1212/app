@@ -6,11 +6,11 @@
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
   <style>
-    /* PC用デフォルトスタイル */
+    /* PC用デフォルトスタイル（現状維持） */
     body {
       font-family: sans-serif;
       margin: 20px;
-      background-color: white;
+      background-color: #e6f2fa; /* 今の水色背景 */
       color: black;
     }
 
@@ -37,14 +37,13 @@
     /* ===== スマホ用スタイル (幅600px以下) ===== */
     @media screen and (max-width: 600px) {
       body {
-        background-color: #ff9933; /* オレンジ背景 */
+        background-color: #e6f2fa; /* 水色背景のまま */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
-        color: white;
       }
 
       header h1 {
@@ -64,7 +63,7 @@
         padding: 12px;
         margin: 10px 0;
         border-radius: 10px;
-        border: none;
+        border: 1px solid #ccc;
         font-size: 16px;
       }
 
@@ -81,12 +80,13 @@
 
       #btnNext {
         background-color: white;
-        color: #ff9933;
+        color: #333;
+        border: 1px solid #ccc;
       }
 
       #btnBack {
         background: none;
-        color: white;
+        color: #333;
         text-decoration: underline;
       }
     }
@@ -95,7 +95,7 @@
 <body>
   <header><h1>新しい図鑑を作る</h1></header>
   <label for="zukanName">図鑑の名前を入力してください：</label>
-  <input type="text" id="zukanName" placeholder="図鑑の名前を入力" />
+  <input type="text" id="zukanName" placeholder="例：昆虫図鑑" />
   <button id="btnNext">次へ</button>
   <button id="btnBack">戻る</button>
 
