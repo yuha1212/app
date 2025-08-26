@@ -29,23 +29,38 @@
 
     #listContainer {
       padding: 15px;
-      text-align: left;
-      max-width: 600px;
+      text-align: center;
+      max-width: 800px;
       margin: 0 auto;
     }
 
     .list-item {
       background: white;
-      margin: 10px 0;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      margin: 10px;
+      padding: 20px;
+      border: 2px solid #1f5c72;
+      border-radius: 12px;
+      display: inline-block;
+      width: 140px;
+      height: 180px;
+      vertical-align: top;
+      position: relative;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .list-item h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
     }
 
     .list-item button {
-      margin-left: 8px;
-      padding: 5px 10px;
+      display: block;
+      margin: 5px auto;
+      padding: 6px 10px;
       font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #f9f9f9;
     }
 
     #btnBack {
@@ -77,24 +92,39 @@
       }
 
       header h1 {
-        font-size: 24px;
+        font-size: 32px;
         margin-top: 15%;
         margin-bottom: 10px;
       }
 
       #listContainer {
-        width: 90%;
-        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
       .list-item {
-        font-size: 18px;
-        padding: 15px;
+        width: 120px;
+        height: 160px;
+        margin: 10px;
+        border: 2px solid #3498db;
+        background: #cce8f9;
+        border-radius: 6px;
+        padding: 10px;
+      }
+
+      .list-item h3 {
+        font-size: 14px;
+        margin-bottom: 8px;
       }
 
       .list-item button {
-        font-size: 16px;
-        padding: 8px 12px;
+        font-size: 12px;
+        margin: 3px auto;
+        padding: 4px 6px;
+        background: white;
+        border: 1px solid #555;
+        border-radius: 4px;
       }
 
       #btnBack {
@@ -154,7 +184,7 @@
 </head>
 <body>
   <header>
-    <h1>登録済み図鑑一覧</h1>
+    <h1>図鑑一覧</h1>
   </header>
 
   <div id="listContainer"></div>
@@ -215,17 +245,13 @@
         zukans.forEach(zukan => {
           const div = document.createElement('div');
           div.className = 'list-item';
-          div.textContent = zukan.name;
 
-          const btnAdd = document.createElement('button');
-          btnAdd.textContent = '写真を追加';
-          btnAdd.onclick = () => {
-            localStorage.setItem('currentZukanId', zukan.id);
-            location.href = 'add_photo.html';
-          };
+          const title = document.createElement('h3');
+          title.textContent = zukan.name;
+          div.appendChild(title);
 
           const btnView = document.createElement('button');
-          btnView.textContent = '見る';
+          btnView.textContent = '閲覧';
           btnView.onclick = () => {
             localStorage.setItem('currentZukanId', zukan.id);
             location.href = 'zukan_view.html';
@@ -241,9 +267,17 @@
             }
           };
 
-          div.appendChild(btnAdd);
+          const btnAdd = document.createElement('button');
+          btnAdd.textContent = '写真追加';
+          btnAdd.onclick = () => {
+            localStorage.setItem('currentZukanId', zukan.id);
+            location.href = 'add_photo.html';
+          };
+
           div.appendChild(btnView);
           div.appendChild(btnDelete);
+          div.appendChild(btnAdd);
+
           listContainer.appendChild(div);
         });
       }
