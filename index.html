@@ -12,8 +12,8 @@
       margin: 0;
       height: 100vh;
       display: flex;
-      justify-content: center; /* 横中央 */
-      align-items: center;     /* 縦中央 */
+      justify-content: center;
+      align-items: center;
       flex-direction: column;
       text-align: center;
     }
@@ -41,27 +41,32 @@
       background-color: #4ea65e;
     }
 
+    /* ナビゲーションバーはデフォルト非表示 */
+    .bottom-nav {
+      display: none;
+    }
+
     /* スマホ用 */
     @media (max-width: 600px) {
-      body {
-        justify-content: center;
-        align-items: center;
-      }
-
       h1 {
         font-size: 50px;
         margin-bottom: auto; /* 上に寄せる */
         margin-top: 30%;
       }
 
-      /* ナビゲーションバー */
+      /* PC用ボタンはスマホで非表示 */
+      .btn {
+        display: none;
+      }
+
+      /* スマホ用ナビゲーションバーを表示 */
       .bottom-nav {
+        display: flex;
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
         background-color: #dcecf9;
-        display: flex;
         justify-content: space-around;
         align-items: center;
         border-top: 3px solid #1f5c72;
