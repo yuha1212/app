@@ -13,10 +13,10 @@
       margin: 0;
       padding: 0;
       background: #f9f9f9;
+      text-align: center;
     }
 
     header {
-      text-align: center;
       padding: 20px;
       background: #3498db;
       color: white;
@@ -29,6 +29,9 @@
 
     #listContainer {
       padding: 15px;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .list-item {
@@ -52,75 +55,64 @@
     }
 
     #map {
-      margin: 15px;
+      margin: 15px auto;
       border: 2px solid #ccc;
       border-radius: 8px;
+      max-width: 90%;
     }
 
-    /* ▼ スマホ用 ▼ */
+    /* --- スマホ用 --- */
     @media (max-width: 600px) {
       body {
         background-color: #e6f2fa;
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
       }
 
       header {
         background: none;
         color: black;
-        padding: 30px 10px 10px;
+        padding: 10px;
       }
 
       header h1 {
-        font-size: 36px;
-        margin-bottom: 20px;
+        font-size: 24px;
+        margin-top: 15%;
+        margin-bottom: 10px;
       }
 
       #listContainer {
         width: 90%;
-        padding: 0;
+        padding: 10px;
       }
 
       .list-item {
-        font-size: 20px;
+        font-size: 18px;
         padding: 15px;
-        margin: 15px auto;
-        border: 2px solid #2c3e50;
-        border-radius: 12px;
       }
 
       .list-item button {
-        font-size: 18px;
-        padding: 10px 14px;
-        margin-top: 10px;
+        font-size: 16px;
+        padding: 8px 12px;
       }
 
       #btnBack {
-        display: none; /* スマホでは非表示 */
+        display: none; /* スマホでは戻るボタン非表示 */
       }
 
       h2 {
-        font-size: 28px;
-        margin-top: 30px;
-        margin-bottom: 10px;
+        font-size: 20px;
       }
 
-      #map {
-        width: 90%;
-        height: 300px;
-        margin: 0 auto 80px; /* ナビバー分の余白 */
-      }
-
-      /* スマホ用ナビゲーションバー */
+      /* ナビゲーションバー（index.html と統一） */
       .bottom-nav {
+        display: flex;
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
         background-color: #dcecf9;
-        display: flex;
         justify-content: space-around;
         align-items: center;
         border-top: 3px solid #1f5c72;
@@ -153,6 +145,11 @@
         height: 60px;
       }
     }
+
+    /* PC用ではナビゲーションバーを非表示 */
+    .bottom-nav {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -163,10 +160,11 @@
   <div id="listContainer"></div>
   <button id="btnBack">スタート画面に戻る</button>
 
+  <hr>
   <h2>マップ</h2>
   <div id="map" style="height:400px;"></div>
 
-  <!-- スマホ用ナビゲーションバー -->
+  <!-- スマホ用ナビゲーションバー（PCでは非表示） -->
   <div class="bottom-nav">
     <button class="nav-btn" onclick="location.href='index.html'">🏠</button>
     <button class="nav-btn" onclick="location.href='zukan_list.html'">📖</button>
