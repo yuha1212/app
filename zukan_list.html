@@ -59,25 +59,61 @@
 
     /* ▼ スマホ用 ▼ */
     @media (max-width: 600px) {
+      body {
+        background-color: #e6f2fa;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      header {
+        background: none;
+        color: black;
+        padding: 30px 10px 10px;
+      }
+
       header h1 {
-        font-size: 22px;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      #listContainer {
+        width: 90%;
+        padding: 0;
       }
 
       .list-item {
-        font-size: 18px;
+        font-size: 20px;
         padding: 15px;
+        margin: 15px auto;
+        border: 2px solid #2c3e50;
+        border-radius: 12px;
       }
 
       .list-item button {
-        font-size: 16px;
-        padding: 8px 12px;
+        font-size: 18px;
+        padding: 10px 14px;
+        margin-top: 10px;
       }
 
       #btnBack {
-        display: none; /* スマホでは戻るボタン非表示 */
+        display: none; /* スマホでは非表示 */
       }
 
-      /* ナビゲーションバー */
+      h2 {
+        font-size: 28px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+
+      #map {
+        width: 90%;
+        height: 300px;
+        margin: 0 auto 80px; /* ナビバー分の余白 */
+      }
+
+      /* スマホ用ナビゲーションバー */
       .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -88,19 +124,19 @@
         justify-content: space-around;
         align-items: center;
         border-top: 3px solid #1f5c72;
-        padding: 8px 0;
+        padding: 10px 0;
       }
 
       .nav-btn {
         background: white;
         border: 2px solid black;
         border-radius: 12px;
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 26px;
+        font-size: 28px;
         cursor: pointer;
       }
 
@@ -109,12 +145,12 @@
       }
 
       .plus-btn {
-        font-size: 38px;
+        font-size: 40px;
         border: none;
         background: none;
         color: #0d3d4f;
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
       }
     }
   </style>
@@ -127,9 +163,7 @@
   <div id="listContainer"></div>
   <button id="btnBack">スタート画面に戻る</button>
 
-  <hr>
-
-  <h2 style="text-align:center;">マップ</h2>
+  <h2>マップ</h2>
   <div id="map" style="height:400px;"></div>
 
   <!-- スマホ用ナビゲーションバー -->
@@ -150,7 +184,6 @@
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      // マーカーをまとめるレイヤー
       const markerLayer = L.layerGroup().addTo(map);
 
       function renderMapMarkers() {
