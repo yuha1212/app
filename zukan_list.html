@@ -2,12 +2,14 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>図鑑一覧</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js" defer></script>
   <style>
+    /* ====== PC 共通（最初にいただいた状態に戻す） ====== */
     body {
       font-family: 'Kosugi Maru', sans-serif;
       margin: 0;
@@ -15,143 +17,164 @@
       background: #f9f9f9;
       text-align: center;
     }
-
     header {
       padding: 20px;
       background: #3498db;
       color: white;
     }
-
     h1 {
       margin: 0;
       font-size: 28px;
     }
-
     #listContainer {
       padding: 15px;
-      text-align: center;
-      max-width: 800px;
+      text-align: left;
+      max-width: 600px;
       margin: 0 auto;
     }
-
     .list-item {
       background: white;
-      margin: 10px;
-      padding: 20px;
-      border: 2px solid #1f5c72;
-      border-radius: 12px;
-      display: inline-block;
-      width: 140px;
-      height: 180px;
-      vertical-align: top;
-      position: relative;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      margin: 10px 0;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
     }
-
-    .list-item h3 {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
     .list-item button {
-      display: block;
-      margin: 5px auto;
-      padding: 6px 10px;
+      margin-left: 8px;
+      padding: 5px 10px;
       font-size: 14px;
-      border-radius: 6px;
-      border: 1px solid #333;
-      background: #f9f9f9;
     }
-
     #btnBack {
       margin: 20px;
       padding: 10px 20px;
       font-size: 16px;
     }
-
     #map {
       margin: 15px auto;
       border: 2px solid #ccc;
       border-radius: 8px;
       max-width: 90%;
+      height: 400px;
     }
+    /* PC ではナビゲーションバーは非表示 */
+    .bottom-nav { display: none; }
 
-    /* --- スマホ用 --- */
+    /* ====== スマホ用だけ変更（max-width:600px） ====== */
     @media (max-width: 600px) {
       body {
-        background-color: #e6f2fa;
+        background-color: #e6f2fa;         /* ホーム画面と同じ水色 */
         display: flex;
         flex-direction: column;
         align-items: center;
+        min-height: 100vh;
+        padding-bottom: 90px;              /* ナビバー分の余白 */
       }
-
       header {
-        background: none;
-        color: black;
-        padding: 10px;
+        background: none;                  /* 濃い青の帯は消す */
+        color: #000;
+        padding: 10px 0 0;
       }
-
       header h1 {
-        font-size: 32px;
-        margin-top: 15%;
-        margin-bottom: 10px;
+        font-size: 56px;                   /* 大きく読みやすく */
+        margin-top: 14%;
+        margin-bottom: 12px;
       }
 
+      /* 一覧はタイル表示（本カード） */
       #listContainer {
+        width: 100%;
+        max-width: 960px;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        gap: 18px;
+        justify-items: center;
+        padding: 0 16px 8px;
+      }
+
+      /* 本のようなカード */
+      .list-item {
+        position: relative;
+        width: 170px;
+        height: 220px;
+        margin: 0;
+        padding: 0;
+        background: #cfe8fb;
+        border: 3px solid #1f5c72;
+        border-radius: 10px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.25);
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
         justify-content: center;
       }
-
-      .list-item {
-        width: 120px;
-        height: 160px;
-        margin: 10px;
-        border: 2px solid #3498db;
-        background: #cce8f9;
-        border-radius: 6px;
-        padding: 10px;
-      }
-
-      .list-item h3 {
-        font-size: 14px;
-        margin-bottom: 8px;
-      }
-
-      .list-item button {
-        font-size: 12px;
-        margin: 3px auto;
-        padding: 4px 6px;
-        background: white;
-        border: 1px solid #555;
-        border-radius: 4px;
-      }
-
-      #btnBack {
-        display: none; /* スマホでは戻るボタン非表示 */
-      }
-
-      h2 {
-        font-size: 20px;
-      }
-
-      /* ナビゲーションバー（index.html と統一） */
-      .bottom-nav {
-        display: flex;
-        position: fixed;
-        bottom: 0;
+      /* 背表紙 */
+      .list-item::before {
+        content: "";
+        position: absolute;
         left: 0;
+        top: 0;
+        width: 18px;
+        height: 100%;
+        border-right: 2px solid #1f5c72;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        background: linear-gradient(#7cc0e6, #56a8d6);
+      }
+      /* ページ（白地に緑枠） */
+      .page {
+        width: 80%;
+        height: 80%;
+        background: #fff;
+        border: 4px solid #6bc06b;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 10px;
+        color: #111;                       /* 文字は黒で見やすく */
+      }
+      .title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 4px;
+        margin-bottom: 6px;
+        word-break: break-all;
+      }
+      .page button {
+        width: 86%;
+        height: 40px;
+        font-size: 16px;                   /* ボタン文字大きく */
+        color: #111;
+        background: #ffffff;
+        border: 2px solid #333;
+        border-radius: 6px;
+      }
+      .page button:active {
+        transform: translateY(1px);
+      }
+
+      #btnBack { display: none; }          /* スマホでは戻るボタン非表示 */
+      h2 { font-size: 22px; margin: 10px 0; }
+      #map { width: 92%; height: 340px; }
+
+      /* スマホ用ナビゲーションバー（ホーム画面と統一） */
+      .bottom-nav {
+        display: flex !important;          /* ここを確実に有効化 */
+        position: fixed;
+        bottom: 0; left: 0;
         width: 100%;
         background-color: #dcecf9;
         justify-content: space-around;
         align-items: center;
         border-top: 3px solid #1f5c72;
         padding: 10px 0;
+        z-index: 1000;
       }
-
       .nav-btn {
-        background: white;
-        border: 2px solid black;
+        background: #fff;
+        border: 2px solid #000;
         border-radius: 12px;
         width: 60px;
         height: 60px;
@@ -161,11 +184,7 @@
         font-size: 28px;
         cursor: pointer;
       }
-
-      .nav-btn:active {
-        background: #f0f0f0;
-      }
-
+      .nav-btn:active { background: #f0f0f0; }
       .plus-btn {
         font-size: 40px;
         border: none;
@@ -174,11 +193,6 @@
         width: 60px;
         height: 60px;
       }
-    }
-
-    /* PC用ではナビゲーションバーを非表示 */
-    .bottom-nav {
-      display: none;
     }
   </style>
 </head>
@@ -192,10 +206,11 @@
 
   <hr>
   <h2>マップ</h2>
-  <div id="map" style="height:400px;"></div>
+  <div id="map"></div>
 
   <!-- スマホ用ナビゲーションバー（PCでは非表示） -->
   <div class="bottom-nav">
+    <!-- ホーム画面と同じ構成。相対パスで統一（必要なら絶対パスに置換してください） -->
     <button class="nav-btn" onclick="location.href='index.html'">🏠</button>
     <button class="nav-btn" onclick="location.href='zukan_list.html'">📖</button>
     <button class="nav-btn">👥</button>
@@ -207,11 +222,11 @@
       const listContainer = document.getElementById('listContainer');
       const btnBack = document.getElementById('btnBack');
 
+      /* --- Leaflet マップ --- */
       const map = L.map('map').setView([35, 135], 5);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
-
       const markerLayer = L.layerGroup().addTo(map);
 
       function renderMapMarkers() {
@@ -234,21 +249,26 @@
         });
       }
 
+      /* --- 一覧描画 --- */
       function renderList() {
         const zukans = getZukans();
         if (zukans.length === 0) {
           listContainer.innerHTML = '<p>まだ図鑑がありません。</p>';
           return;
         }
-
         listContainer.innerHTML = '';
-        zukans.forEach(zukan => {
-          const div = document.createElement('div');
-          div.className = 'list-item';
 
-          const title = document.createElement('h3');
+        zukans.forEach(zukan => {
+          const item = document.createElement('div');
+          item.className = 'list-item';
+
+          /* スマホ用の「ページ」内側（PCでは影響しないCSSにしてある） */
+          const page = document.createElement('div');
+          page.className = 'page';
+
+          const title = document.createElement('div');
+          title.className = 'title';
           title.textContent = zukan.name;
-          div.appendChild(title);
 
           const btnView = document.createElement('button');
           btnView.textContent = '閲覧';
@@ -274,20 +294,46 @@
             location.href = 'add_photo.html';
           };
 
-          div.appendChild(btnView);
-          div.appendChild(btnDelete);
-          div.appendChild(btnAdd);
+          /* PC表示互換のため、PCでは .page のレイアウトは効かない */
+          page.appendChild(title);
+          page.appendChild(btnView);
+          page.appendChild(btnDelete);
+          page.appendChild(btnAdd);
+          item.appendChild(page);
 
-          listContainer.appendChild(div);
+          /* PCスタイル（最初の仕様）でも読めるように、タイトルとボタンを
+             直接 .list-item 内にも残しておく（視覚はスマホのみ .page が適用） */
+          const pcTitle = document.createElement('strong');
+          pcTitle.textContent = zukan.name + ' ';
+          const pcView = btnView.cloneNode(true);
+          const pcDel  = btnDelete.cloneNode(true);
+          const pcAdd  = btnAdd.cloneNode(true);
+
+          // PC用の動作を復元（clone したので handler を付け直す）
+          pcView.onclick = () => { localStorage.setItem('currentZukanId', zukan.id); location.href = 'zukan_view.html'; };
+          pcDel.onclick  = () => {
+            if (confirm(`「${zukan.name}」を削除しますか？`)) {
+              deleteZukan(zukan.id); renderList(); renderMapMarkers();
+            }
+          };
+          pcAdd.onclick  = () => { localStorage.setItem('currentZukanId', zukan.id); location.href = 'add_photo.html'; };
+
+          // PCではこの行が効き、スマホでは .page が表示を担う
+          const pcOnly = document.createElement('div');
+          pcOnly.appendChild(pcTitle);
+          pcOnly.appendChild(pcView);
+          pcOnly.appendChild(pcDel);
+          pcOnly.appendChild(pcAdd);
+          item.appendChild(pcOnly);
+
+          listContainer.appendChild(item);
         });
       }
 
       renderList();
       renderMapMarkers();
 
-      btnBack.onclick = () => {
-        location.href = 'index.html';
-      };
+      btnBack.onclick = () => { location.href = 'index.html'; };
     });
   </script>
 </body>
