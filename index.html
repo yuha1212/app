@@ -20,12 +20,12 @@
 
     h1 {
       font-size: 85px;        /* PC固定サイズ */
-      color: rgb(52, 152, 219);
+      color: rgb(0, 0, 0);
       margin-bottom: 50px;
     }
 
     .btn {
-      font-size: 22px;        /* PC固定サイズ */
+      font-size: 22px;
       padding: 12px 24px;
       margin: 10px;
       border-radius: 8px;
@@ -43,24 +43,72 @@
 
     /* スマホ用 */
     @media (max-width: 600px) {
-      h1 {
-        font-size: 60px;      /* 少し大きく */
-        margin-bottom: 40px;
+      body {
+        justify-content: center;
+        align-items: center;
       }
 
-      .btn {
-        font-size: 32px;      /* ボタンも大きく */
-        padding: 25px 0;
-        width: 90%;
-        max-width: 400px;
-        border-radius: 20px;
+      h1 {
+        font-size: 50px;
+        margin-bottom: auto; /* 上に寄せる */
+        margin-top: 30%;
+      }
+
+      /* ナビゲーションバー */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #dcecf9;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 3px solid #1f5c72;
+        padding: 10px 0;
+      }
+
+      .nav-btn {
+        background: white;
+        border: 2px solid black;
+        border-radius: 12px;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        cursor: pointer;
+      }
+
+      .nav-btn:active {
+        background: #f0f0f0;
+      }
+
+      .plus-btn {
+        font-size: 40px;
+        border: none;
+        background: none;
+        color: #0d3d4f;
+        width: 60px;
+        height: 60px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>図鑑作成アプリ</h1>
+  <h1>図鑑作成<br>アプリ</h1>
+
+  <!-- PC用ボタン -->
   <button class="btn" onclick="location.href='/app/create_zukan.html'">＋新規作成</button>
   <button class="btn" onclick="location.href='/app/zukan_list.html'">図鑑一覧</button>
+
+  <!-- スマホ用ナビゲーションバー -->
+  <div class="bottom-nav">
+    <button class="nav-btn" onclick="location.href='/app/index.html'">🏠</button>
+    <button class="nav-btn" onclick="location.href='/app/zukan_list.html'">📖</button>
+    <button class="nav-btn">👥</button>
+    <button class="plus-btn" onclick="location.href='/app/create_zukan.html'">＋</button>
+  </div>
 </body>
 </html>
