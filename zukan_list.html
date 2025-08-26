@@ -7,27 +7,138 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js" defer></script>
-</head><!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <title>図鑑一覧</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="script.js" defer></script>
+  <style>
+    body {
+      font-family: 'Kosugi Maru', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #3498db;
+      color: white;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    #listContainer {
+      padding: 15px;
+    }
+
+    .list-item {
+      background: white;
+      margin: 10px 0;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .list-item button {
+      margin-left: 8px;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+
+    #btnBack {
+      margin: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    #map {
+      margin: 15px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    /* ▼ スマホ用 ▼ */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 22px;
+      }
+
+      .list-item {
+        font-size: 18px;
+        padding: 15px;
+      }
+
+      .list-item button {
+        font-size: 16px;
+        padding: 8px 12px;
+      }
+
+      #btnBack {
+        display: none; /* スマホでは戻るボタン非表示 */
+      }
+
+      /* ナビゲーションバー */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #dcecf9;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 3px solid #1f5c72;
+        padding: 8px 0;
+      }
+
+      .nav-btn {
+        background: white;
+        border: 2px solid black;
+        border-radius: 12px;
+        width: 55px;
+        height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+        cursor: pointer;
+      }
+
+      .nav-btn:active {
+        background: #f0f0f0;
+      }
+
+      .plus-btn {
+        font-size: 38px;
+        border: none;
+        background: none;
+        color: #0d3d4f;
+        width: 55px;
+        height: 55px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>登録済み図鑑一覧</h1>
   </header>
+
   <div id="listContainer"></div>
   <button id="btnBack">スタート画面に戻る</button>
 
   <hr>
 
-  <h2>マップ</h2>
+  <h2 style="text-align:center;">マップ</h2>
   <div id="map" style="height:400px;"></div>
+
+  <!-- スマホ用ナビゲーションバー -->
+  <div class="bottom-nav">
+    <button class="nav-btn" onclick="location.href='index.html'">🏠</button>
+    <button class="nav-btn" onclick="location.href='zukan_list.html'">📖</button>
+    <button class="nav-btn">👥</button>
+    <button class="plus-btn" onclick="location.href='create_zukan.html'">＋</button>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -39,23 +150,23 @@
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      // マーカーを管理するためのレイヤーグループ
+      // マーカーをまとめるレイヤー
       const markerLayer = L.layerGroup().addTo(map);
 
       function renderMapMarkers() {
-        markerLayer.clearLayers(); // 既存のマーカーをすべてクリア
+        markerLayer.clearLayers();
         const zukans = getZukans();
         zukans.forEach(zukan => {
           if (zukan.photos) {
             zukan.photos.forEach(photo => {
-              if (photo.lat && photo.lng && photo.showGps) { // GPS情報があり、表示が有効な場合のみマーカーを表示
+              if (photo.lat && photo.lng && photo.showGps) {
                 const marker = L.marker([photo.lat, photo.lng]);
                 marker.bindPopup(`
                   <b>${photo.name}</b><br>
                   <img src="${photo.image}" width="100"><br>
                   ${photo.description || ''}
                 `);
-                markerLayer.addLayer(marker); // マーカーをレイヤーグループに追加
+                markerLayer.addLayer(marker);
               }
             });
           }
@@ -76,11 +187,11 @@
           div.textContent = zukan.name;
 
           const btnAdd = document.createElement('button');
-            btnAdd.textContent = '写真を追加';
-            btnAdd.onclick = () => {
-              localStorage.setItem('currentZukanId', zukan.id);
-              location.href = 'add_photo.html';
-            };
+          btnAdd.textContent = '写真を追加';
+          btnAdd.onclick = () => {
+            localStorage.setItem('currentZukanId', zukan.id);
+            location.href = 'add_photo.html';
+          };
 
           const btnView = document.createElement('button');
           btnView.textContent = '見る';
@@ -95,13 +206,13 @@
             if (confirm(`「${zukan.name}」を削除しますか？`)) {
               deleteZukan(zukan.id);
               renderList();
-              renderMapMarkers(); // マーカーを再描画
+              renderMapMarkers();
             }
           };
 
           div.appendChild(btnAdd);
           div.appendChild(btnView);
-          div.appendChild(btnDelete);  
+          div.appendChild(btnDelete);
           listContainer.appendChild(div);
         });
       }
@@ -112,100 +223,6 @@
       btnBack.onclick = () => {
         location.href = 'index.html';
       };
-    });
-  </script>
-</body>
-</html>
-
-<body>
-  <header>
-    <h1>登録済み図鑑一覧</h1>
-  </header>
-  <div id="listContainer"></div>
-  <button id="btnBack">スタート画面に戻る</button>
-
-  <hr>
-
-  <h2>マップ</h2>
-  <div id="map" style="height:400px;"></div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const listContainer = document.getElementById('listContainer');
-      const btnBack = document.getElementById('btnBack');
-
-      function renderList() {
-        const zukans = getZukans();
-        if (zukans.length === 0) {
-          listContainer.innerHTML = '<p>まだ図鑑がありません。</p>';
-          return;
-        }
-
-        listContainer.innerHTML = '';
-        zukans.forEach(zukan => {
-          const div = document.createElement('div');
-          div.className = 'list-item';
-          div.textContent = zukan.name;
-
-          const btnAdd = document.createElement('button');
-            btnAdd.textContent = '写真を追加';
-            btnAdd.onclick = () => {
-              localStorage.setItem('currentZukanId', zukan.id);
-              location.href = 'add_photo.html';
-            };
-
-          const btnView = document.createElement('button');
-          btnView.textContent = '閲覧';
-          btnView.onclick = () => {
-            localStorage.setItem('currentZukanId', zukan.id);
-            location.href = 'zukan_view.html';
-          };
-
-          const btnDelete = document.createElement('button');
-          btnDelete.textContent = '削除';
-          btnDelete.onclick = () => {
-            if (confirm(`「${zukan.name}」を削除しますか？`)) {
-              deleteZukan(zukan.id);
-              renderList();
-            }
-          };
-
-          div.appendChild(btnAdd);
-          div.appendChild(btnView);
-          div.appendChild(btnDelete);  
-          listContainer.appendChild(div);
-        });
-      }
-
-      btnBack.onclick = () => {
-        location.href = 'index.html';
-      };
-
-      const map = L.map('map').setView([35, 135], 5);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-
-      function renderMapMarkers() {
-        const zukans = getZukans();
-        zukans.forEach(zukan => {
-          if (zukan.photos) {
-            zukan.photos.forEach(photo => {
-              if (photo.lat && photo.lng) {
-                const marker = L.marker([photo.lat, photo.lng]).addTo(map);
-                marker.bindPopup(`
-                  <b>${photo.name}</b><br>
-                  <img src="${photo.image}" width="100"><br>
-                  ${photo.description || ''}
-                `);
-              }
-            });
-          }
-        });
-      }
-
-      renderList();
-      renderMapMarkers();
     });
   </script>
 </body>
