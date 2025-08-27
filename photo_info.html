@@ -4,35 +4,50 @@
   <meta charset="UTF-8" />
   <title>写真の情報を入力</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+P+One&display=swap" rel="stylesheet">
+  <style>
+    .input-section label {
+      display: block;
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body>
+<body class="fantasy-theme">
   <header><h1>写真の情報を入力</h1></header>
 
-  <div class="photo-section">
-    <img id="displayImage" src="" alt="プレビュー" style="max-width: 100%; margin-bottom: 20px;" />
-  </div>
+  <main class="main-container">
+    <div class="photo-section">
+      <img id="displayImage" src="" alt="プレビュー" style="max-width: 100%; height: auto; border-radius: 10px; border: 2px solid var(--border-color);" />
+    </div>
 
-  <div class="input-section">
-    <label for="photoName">名前：</label>
-    <input type="text" id="photoName" />
-  </div>
+    <div class="input-section">
+      <label for="photoName">名前：</label>
+      <input type="text" id="photoName" placeholder="例：キノコくん" />
+    </div>
 
-  <div class="input-section">
-    <label for="photoDescription">説明：</label>
-    <textarea id="photoDescription"></textarea>
-  </div>
-  
-  <div class="input-section">
-    <label for="showGps">GPS情報を表示する：</label>
-    <input type="checkbox" id="showGps" checked>
-  </div>
+    <div class="input-section">
+      <label for="photoDescription">説明：</label>
+      <textarea id="photoDescription" placeholder="例：森の中で見つけた、とてもかわいいキノコ！"></textarea>
+    </div>
+    
+    <div class="input-section checkbox-wrapper">
+      <label for="showGps">
+        <input type="checkbox" id="showGps" checked>
+        位置情報を表示する
+      </label>
+    </div>
 
-  <div class="button-section">
-    <button id="btnSave">登録</button>
-    <button id="btnBack">戻る</button>
-  </div>
+    <div class="button-section">
+      <button class="btn" id="btnSave">登録</button>
+      <button class="btn" id="btnBack">戻る</button>
+    </div>
+  </main>
 
+  <script src="script.js"></script>
   <script>
     const image = document.getElementById('displayImage');
     const nameInput = document.getElementById('photoName');
@@ -54,8 +69,8 @@
       const desc = descInput.value.trim();
       const showGps = document.getElementById('showGps').checked;
 
-      if (!photoData || !name || !desc) {
-        alert('名前と説明を入力してください');
+      if (!photoData || !name) {
+        alert('名前を入力してください');
         return;
       }
 
