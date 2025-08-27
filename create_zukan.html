@@ -5,13 +5,20 @@
   <title>新しい図鑑を作る</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+P+One&display=swap" rel="stylesheet">
 </head>
 <body class="fantasy-theme">
-  <header><h1>図鑑の名前を決めよう！</h1></header>
   <div class="main-container">
+    <header><h1>図鑑の名前とアイコンを決めよう！</h1></header>
     <div class="form-group">
+      <label for="zukanName">図鑑の名前：</label>
       <input type="text" id="zukanName" placeholder="例：森のいきもの図鑑" required />
+    </div>
+    <div class="form-group">
+      <label for="zukanIcon">図鑑のアイコン画像（任意）：</label>
+      <input type="file" id="zukanIcon" accept="image/*" />
     </div>
     <div class="button-group">
       <button class="btn" id="btnNext">次へ</button>
@@ -19,20 +26,34 @@
     </div>
   </div>
 
+  <script src="script.js"></script>
   <script>
     const btnNext = document.getElementById('btnNext');
     const btnBack = document.getElementById('btnBack');
-    const input = document.getElementById('zukanName');
+    const nameInput = document.getElementById('zukanName');
+    const iconInput = document.getElementById('zukanIcon');
     
     btnNext.onclick = () => {
-      const name = input.value.trim();
+      const name = nameInput.value.trim();
       if (!name) {
         alert('図鑑の名前を入力してください');
         return;
       }
-      const newId = addZukan(name);
-      localStorage.setItem('currentZukanId', newId);
-      location.href = 'add_photo.html';
+      
+      const iconFile = iconInput.files[0];
+      if (iconFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const newId = addZukan(name, e.target.result);
+          localStorage.setItem('currentZukanId', newId);
+          location.href = 'add_photo.html';
+        };
+        reader.readAsDataURL(iconFile);
+      } else {
+        const newId = addZukan(name, null);
+        localStorage.setItem('currentZukanId', newId);
+        location.href = 'add_photo.html';
+      }
     };
 
     btnBack.onclick = () => {
