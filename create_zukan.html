@@ -3,103 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <title>新しい図鑑を作る</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ←これを追加 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
-  <style>
-    /* PC用デフォルトスタイル（現状維持） */
-    body {
-      font-family: sans-serif;
-      margin: 20px;
-      background-color: #e6f2fa; /* 水色背景 */
-      color: black;
-    }
-
-    header h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    label, input, button {
-      display: block;
-      margin: 10px 0;
-      font-size: 16px;
-    }
-
-    input {
-      padding: 5px;
-    }
-
-    button {
-      padding: 8px 16px;
-      cursor: pointer;
-    }
-
-    /* ===== スマホ用スタイル (幅600px以下) ===== */
-    @media screen and (max-width: 600px) {
-      body {
-        background-color: #e6f2fa;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        padding-top: 150px;
-      }
-
-      header h1 {
-        font-size: 32px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
-      label {
-        display: none; /* プレースホルダーで代用 */
-      }
-
-      input {
-        width: 80%;
-        max-width: 300px;
-        padding: 12px;
-        margin: 10px 0;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-      }
-
-      button {
-        width: 80%;
-        max-width: 300px;
-        padding: 12px;
-        margin: 10px 0;
-        border-radius: 10px;
-        border: none;
-        font-size: 16px;
-        font-weight: bold;
-      }
-
-      #btnNext {
-        background-color: white;
-        color: #333;
-        border: 1px solid #ccc;
-      }
-
-      #btnBack {
-        background: none;
-        color: #333;
-        text-decoration: underline;
-      }
-    }
-  </style>
 </head>
-<body>
-  <header><h1>図鑑名を設定してね！</h1></header>
-  <label for="zukanName">図鑑の名前を入力してください：</label>
-  <input type="text" id="zukanName" placeholder="例：昆虫図鑑" />
-  <button id="btnNext">次へ</button>
-  <button id="btnBack">戻る</button>
+<body class="fantasy-theme">
+  <header><h1>図鑑の名前を決めよう！</h1></header>
+  <div class="main-container">
+    <div class="form-group">
+      <input type="text" id="zukanName" placeholder="例：森のいきもの図鑑" required />
+    </div>
+    <div class="button-group">
+      <button class="btn" id="btnNext">次へ</button>
+      <button class="btn" id="btnBack">戻る</button>
+    </div>
+  </div>
 
   <script>
     const btnNext = document.getElementById('btnNext');
@@ -114,11 +32,11 @@
       }
       const newId = addZukan(name);
       localStorage.setItem('currentZukanId', newId);
-      location.href = '/app/add_photo.html';
+      location.href = 'add_photo.html';
     };
 
     btnBack.onclick = () => {
-      location.href = '/app/index.html';
+      location.href = 'index.html';
     };
   </script>
 </body>
