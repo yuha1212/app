@@ -1,11 +1,27 @@
+:root {
+  --primary-color: #5d9a76;
+  --secondary-color: #93b7a5;
+  --accent-color: #e3a95c;
+  --bg-color-light: #f5f0e1;
+  --bg-color-dark: #b8860b;
+  --text-color: #2c3e50;
+  --border-color: #7b624a;
+}
+
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: 'Kosugi Maru', sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color-light);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* スマホ/PC共通スタイル */
+.main-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(135deg, #f0f4ff, #e6f9f0);
-  min-height: 100vh;
-  color: #333;
 }
 
 header {
@@ -14,80 +30,133 @@ header {
 }
 
 header h1 {
-  font-size: 28px;
-  color: #2c3e50;
+  font-family: 'Mochiy Pop P One', cursive;
+  font-size: 32px;
+  color: var(--primary-color);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-button {
-  padding: 10px 18px;
-  margin: 5px;
-  font-size: 15px;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  background: #4CAF50;
+.btn, button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 25px;
+  border: 2px solid var(--border-color);
+  background: var(--accent-color);
   color: white;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  font-family: 'Kosugi Maru', sans-serif;
 }
 
-button:hover {
-  background: #43a047;
+.btn:hover, button:hover {
+  background: #d89953;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
 }
 
 input[type="text"], textarea, input[type="file"] {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #bbb;
-  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   box-sizing: border-box;
+  font-size: 16px;
+  background: #fff;
+  font-family: 'Kosugi Maru', sans-serif;
+}
+
+/* 図鑑一覧 */
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 25px;
+  padding-bottom: 80px; /* ナビバーの分 */
 }
 
 .list-item {
-  border: 1px solid #ddd;
+  background: linear-gradient(145deg, #fffcf0, #e9e6da);
+  border: 2px solid var(--border-color);
+  border-radius: 15px;
   padding: 15px;
-  margin: 10px 0;
-  background: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+  position: relative;
 }
 
 .list-item:hover {
-  transform: scale(1.02);
+  transform: translateY(-5px);
+  box-shadow: 5px 5px 12px rgba(0,0,0,0.2);
 }
 
-.list-item span {
-  font-weight: bold;
-  color: #2c3e50;
-  flex-grow: 1;
+.list-item h3 {
+  font-size: 18px;
+  color: var(--primary-color);
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.list-item button {
-  margin-left: 10px;
+.list-item .cover-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.photo-list {
+.item-buttons {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
+  margin-top: 15px;
+  gap: 5px;
+}
+
+.item-buttons button {
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  background: var(--secondary-color);
+  color: var(--text-color);
+  border: 1px solid #777;
+}
+
+/* マップ */
+#map {
+  width: 100%;
+  height: 400px;
+  margin: 30px auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border: 2px solid var(--border-color);
+}
+
+/* 写真一覧 */
+.photo-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding-bottom: 80px;
 }
 
 .photo-card {
-  border: 1px solid #ddd;
-  padding: 12px;
-  margin: 15px;
-  border-radius: 10px;
+  background: #fff;
+  border: 2px solid var(--border-color);
+  border-radius: 15px;
+  padding: 15px;
   text-align: center;
-  width: 220px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .photo-card:hover {
@@ -95,9 +164,106 @@ input[type="text"], textarea, input[type="file"] {
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
+.photo-card h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
 .photo-card img {
   max-width: 100%;
   height: auto;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  border-radius: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+}
+
+.photo-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0 10px;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* スマホ用レイアウト */
+@media (max-width: 600px) {
+  body.fantasy-theme {
+    background: #e6f2fa;
+    padding-bottom: 70px;
+  }
+  
+  .pc-only { display: none; }
+  .sp-only { display: flex; }
+
+  .app-title {
+    font-size: 50px;
+    margin-bottom: 20px;
+    margin-top: 30%;
+  }
+
+  .app-title .subtitle {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-top: -10px;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #dcecf9;
+    border-top: 3px solid var(--border-color);
+    padding: 5px 0;
+    justify-content: space-around;
+    z-index: 1000;
+  }
+
+  .nav-item {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  .nav-item:active {
+    transform: scale(0.9);
+  }
+
+  .nav-item .icon {
+    font-size: 24px;
+    margin-bottom: 3px;
+  }
+
+  .plus-item .icon {
+    font-size: 36px;
+    color: var(--primary-color);
+  }
+
+  .list-item {
+    background: linear-gradient(to right, var(--primary-color) 20px, #e6f2fa 20px);
+    border: 2px solid var(--border-color);
+    padding: 10px;
+  }
+  
+  .list-item h3 {
+    font-size: 16px;
+    color: #000;
+  }
+
+  .item-buttons button {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  .photo-card {
+    margin: 10px;
+    padding: 10px;
+  }
 }
