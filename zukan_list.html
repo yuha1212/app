@@ -1,197 +1,126 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>図鑑一覧</title>
-  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="script.js" defer></script>
   <style>
-    /* ====== PC 共通（最初にいただいた状態に戻す） ====== */
     body {
-      font-family: 'Kosugi Maru', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      text-align: center;
+      font-family: "Yu Gothic", sans-serif;
+      background: #f9f9f9; /* PC用背景 */
+      color: #222;
     }
+
+    /* ヘッダー */
     header {
-      padding: 20px;
-      background: #3498db;
+      background: #3399cc;
       color: white;
-    }
-    h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-    #listContainer {
+      text-align: center;
       padding: 15px;
-      text-align: left;
-      max-width: 600px;
-      margin: 0 auto;
     }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    /* 一覧 */
+    main {
+      padding: 20px;
+    }
+
     .list-item {
       background: white;
-      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
       padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
     }
-    .list-item button {
-      margin-left: 8px;
-      padding: 5px 10px;
-      font-size: 14px;
-    }
-    #btnBack {
-      margin: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #map {
-      margin: 15px auto;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      max-width: 90%;
-      height: 400px;
-    }
-    /* PC ではナビゲーションバーは非表示 */
-    .bottom-nav { display: none; }
 
-    /* ====== スマホ用だけ変更（max-width:600px） ====== */
+    .list-item h3 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .list-item button {
+      margin-right: 8px;
+      padding: 6px 10px;
+      font-size: 14px;
+      border: 1px solid #666;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #f9f9f9;
+    }
+
+    .list-item button:hover {
+      background: #eee;
+    }
+
+    /* マップ */
+    #map {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    /* スマホ用レイアウト */
     @media (max-width: 600px) {
       body {
-        background-color: #e6f2fa;         /* ホーム画面と同じ水色 */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        padding-bottom: 90px;              /* ナビバー分の余白 */
+        background: #e6f2fa; /* ホーム画面と統一 */
       }
       header {
-        background: none;                  /* 濃い青の帯は消す */
-        color: #000;
-        padding: 10px 0 0;
+        background: none;
+        color: #222;
+        padding: 10px;
       }
       header h1 {
-        font-size: 56px;                   /* 大きく読みやすく */
-        margin-top: 14%;
-        margin-bottom: 12px;
+        font-size: 20px;
       }
-
-      /* 一覧はタイル表示（本カード） */
-      #listContainer {
-        width: 100%;
-        max-width: 960px;
-        text-align: center;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(150px, 1fr));
-        gap: 18px;
-        justify-items: center;
-        padding: 0 16px 8px;
-      }
-
-      /* 本のようなカード */
-      .list-item {
-        position: relative;
-        width: 170px;
-        height: 220px;
-        margin: 0;
-        padding: 0;
-        background: #cfe8fb;
-        border: 3px solid #1f5c72;
-        border-radius: 10px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+      .list-grid {
         display: flex;
-        align-items: center;
+        flex-wrap: wrap;
         justify-content: center;
+        gap: 15px;
       }
-      /* 背表紙 */
-      .list-item::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 18px;
-        height: 100%;
-        border-right: 2px solid #1f5c72;
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-        background: linear-gradient(#7cc0e6, #56a8d6);
-      }
-      /* ページ（白地に緑枠） */
-      .page {
-        width: 80%;
-        height: 80%;
-        background: #fff;
-        border: 4px solid #6bc06b;
-        border-radius: 8px;
+      .list-item {
+        width: 140px;
+        height: 200px;
+        background: linear-gradient(to right, #3c7ca6 20px, #cce8f9 20px);
+        border: 2px solid #1f5c72;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 10px;
+        justify-content: space-between;
         padding: 10px;
-        color: #111;                       /* 文字は黒で見やすく */
       }
-      .title {
-        font-size: 20px;
-        font-weight: 700;
-        margin-top: 4px;
-        margin-bottom: 6px;
-        word-break: break-all;
+      .list-item h3 {
+        font-size: 16px;
+        text-align: center;
+        color: #000;
       }
-      .page button {
-        width: 86%;
-        height: 40px;
-        font-size: 16px;                   /* ボタン文字大きく */
-        color: #111;
-        background: #ffffff;
-        border: 2px solid #333;
-        border-radius: 6px;
+      .list-item button {
+        font-size: 13px;
+        margin: 5px auto;
+        display: block;
       }
-      .page button:active {
-        transform: translateY(1px);
-      }
-
-      #btnBack { display: none; }          /* スマホでは戻るボタン非表示 */
-      h2 { font-size: 22px; margin: 10px 0; }
-      #map { width: 92%; height: 340px; }
-
-      /* スマホ用ナビゲーションバー（ホーム画面と統一） */
-      .bottom-nav {
-        display: flex !important;          /* ここを確実に有効化 */
+      /* ナビゲーションバー */
+      .navbar {
         position: fixed;
-        bottom: 0; left: 0;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        background-color: #dcecf9;
-        justify-content: space-around;
-        align-items: center;
-        border-top: 3px solid #1f5c72;
-        padding: 10px 0;
-        z-index: 1000;
-      }
-      .nav-btn {
-        background: #fff;
-        border: 2px solid #000;
-        border-radius: 12px;
-        width: 60px;
-        height: 60px;
+        background: #3399cc;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 28px;
-        cursor: pointer;
+        justify-content: space-around;
+        padding: 10px 0;
       }
-      .nav-btn:active { background: #f0f0f0; }
-      .plus-btn {
-        font-size: 40px;
-        border: none;
-        background: none;
-        color: #0d3d4f;
-        width: 60px;
-        height: 60px;
+      .nav-button {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
       }
     }
   </style>
@@ -201,140 +130,92 @@
     <h1>図鑑一覧</h1>
   </header>
 
-  <div id="listContainer"></div>
-  <button id="btnBack">スタート画面に戻る</button>
+  <main>
+    <div id="zukan-list"></div>
+    <div id="map"></div>
+  </main>
 
-  <hr>
-  <h2>マップ</h2>
-  <div id="map"></div>
+  <!-- スマホ用ナビゲーションバー -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-button">🏠 ホーム</a>
+    <a href="zukan_list.html" class="nav-button">📚 一覧</a>
+    <a href="add_name.html" class="nav-button">➕ 作成</a>
+  </nav>
 
-  <!-- スマホ用ナビゲーションバー（PCでは非表示） -->
-  <div class="bottom-nav">
-    <!-- ホーム画面と同じ構成。相対パスで統一（必要なら絶対パスに置換してください） -->
-    <button class="nav-btn" onclick="location.href='index.html'">🏠</button>
-    <button class="nav-btn" onclick="location.href='zukan_list.html'">📖</button>
-    <button class="nav-btn">👥</button>
-    <button class="plus-btn" onclick="location.href='create_zukan.html'">＋</button>
-  </div>
-
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const listContainer = document.getElementById('listContainer');
-      const btnBack = document.getElementById('btnBack');
-
-      /* --- Leaflet マップ --- */
-      const map = L.map('map').setView([35, 135], 5);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-      const markerLayer = L.layerGroup().addTo(map);
-
-      function renderMapMarkers() {
-        markerLayer.clearLayers();
-        const zukans = getZukans();
-        zukans.forEach(zukan => {
-          if (zukan.photos) {
-            zukan.photos.forEach(photo => {
-              if (photo.lat && photo.lng && photo.showGps) {
-                const marker = L.marker([photo.lat, photo.lng]);
-                marker.bindPopup(`
-                  <b>${photo.name}</b><br>
-                  <img src="${photo.image}" width="100"><br>
-                  ${photo.description || ''}
-                `);
-                markerLayer.addLayer(marker);
-              }
-            });
-          }
-        });
-      }
-
-      /* --- 一覧描画 --- */
-      function renderList() {
-        const zukans = getZukans();
-        if (zukans.length === 0) {
-          listContainer.innerHTML = '<p>まだ図鑑がありません。</p>';
-          return;
-        }
-        listContainer.innerHTML = '';
-
-        zukans.forEach(zukan => {
-          const item = document.createElement('div');
-          item.className = 'list-item';
-
-          /* スマホ用の「ページ」内側（PCでは影響しないCSSにしてある） */
-          const page = document.createElement('div');
-          page.className = 'page';
-
-          const title = document.createElement('div');
-          title.className = 'title';
-          title.textContent = zukan.name;
-
-          const btnView = document.createElement('button');
-          btnView.textContent = '閲覧';
-          btnView.onclick = () => {
-            localStorage.setItem('currentZukanId', zukan.id);
-            location.href = 'zukan_view.html';
-          };
-
-          const btnDelete = document.createElement('button');
-          btnDelete.textContent = '削除';
-          btnDelete.onclick = () => {
-            if (confirm(`「${zukan.name}」を削除しますか？`)) {
-              deleteZukan(zukan.id);
-              renderList();
-              renderMapMarkers();
-            }
-          };
-
-          const btnAdd = document.createElement('button');
-          btnAdd.textContent = '写真追加';
-          btnAdd.onclick = () => {
-            localStorage.setItem('currentZukanId', zukan.id);
-            location.href = 'add_photo.html';
-          };
-
-          /* PC表示互換のため、PCでは .page のレイアウトは効かない */
-          page.appendChild(title);
-          page.appendChild(btnView);
-          page.appendChild(btnDelete);
-          page.appendChild(btnAdd);
-          item.appendChild(page);
-
-          /* PCスタイル（最初の仕様）でも読めるように、タイトルとボタンを
-             直接 .list-item 内にも残しておく（視覚はスマホのみ .page が適用） */
-          const pcTitle = document.createElement('strong');
-          pcTitle.textContent = zukan.name + ' ';
-          const pcView = btnView.cloneNode(true);
-          const pcDel  = btnDelete.cloneNode(true);
-          const pcAdd  = btnAdd.cloneNode(true);
-
-          // PC用の動作を復元（clone したので handler を付け直す）
-          pcView.onclick = () => { localStorage.setItem('currentZukanId', zukan.id); location.href = 'zukan_view.html'; };
-          pcDel.onclick  = () => {
-            if (confirm(`「${zukan.name}」を削除しますか？`)) {
-              deleteZukan(zukan.id); renderList(); renderMapMarkers();
-            }
-          };
-          pcAdd.onclick  = () => { localStorage.setItem('currentZukanId', zukan.id); location.href = 'add_photo.html'; };
-
-          // PCではこの行が効き、スマホでは .page が表示を担う
-          const pcOnly = document.createElement('div');
-          pcOnly.appendChild(pcTitle);
-          pcOnly.appendChild(pcView);
-          pcOnly.appendChild(pcDel);
-          pcOnly.appendChild(pcAdd);
-          item.appendChild(pcOnly);
-
-          listContainer.appendChild(item);
-        });
-      }
-
+    // ===== ローカル保存操作 =====
+    function getZukans() {
+      return JSON.parse(localStorage.getItem("zukans") || "[]");
+    }
+    function saveZukans(zukans) {
+      localStorage.setItem("zukans", JSON.stringify(zukans));
+    }
+    function deleteZukan(id) {
+      const zukans = getZukans().filter(z => z.id !== id);
+      saveZukans(zukans);
       renderList();
-      renderMapMarkers();
+    }
 
-      btnBack.onclick = () => { location.href = 'index.html'; };
-    });
+    // ===== 一覧描画 =====
+    function renderList() {
+      const container = document.getElementById("zukan-list");
+      container.innerHTML = "";
+
+      const zukans = getZukans();
+      zukans.forEach(zukan => {
+        const item = document.createElement("div");
+        item.className = "list-item";
+
+        item.innerHTML = `
+          <h3>${zukan.name}</h3>
+          <button onclick="viewZukan(${zukan.id})">🔍 閲覧</button>
+          <button onclick="if(confirm('${zukan.name} を削除しますか？')) deleteZukan(${zukan.id})">🗑 削除</button>
+          <button onclick="addPhoto(${zukan.id})">📷 写真追加</button>
+        `;
+
+        container.appendChild(item);
+      });
+    }
+
+    function viewZukan(id) {
+      localStorage.setItem("currentZukanId", id);
+      window.location.href = "zukan_view.html";
+    }
+
+    function addPhoto(id) {
+      localStorage.setItem("currentZukanId", id);
+      window.location.href = "add_photo.html";
+    }
+
+    // ===== マップ描画 =====
+    function renderMap() {
+      const map = L.map("map").setView([38.2688, 140.8719], 13); // 仙台
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(map);
+
+      const zukans = getZukans();
+      zukans.forEach(zukan => {
+        if (zukan.photos) {
+          zukan.photos.forEach(photo => {
+            if (photo.lat && photo.lng) {
+              const marker = L.marker([photo.lat, photo.lng]).addTo(map);
+              marker.bindPopup(
+                `<b>${photo.name}</b><br>
+                 <img src="${photo.image}" width="100"><br>
+                 ${photo.description || ''}`
+              );
+            }
+          });
+        }
+      });
+    }
+
+    // 初期化
+    renderList();
+    renderMap();
   </script>
 </body>
 </html>
