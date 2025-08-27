@@ -3,117 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>図鑑作成アプリ</title>
+  <title>マイズカンくん</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      font-family: 'Kosugi Maru', sans-serif;
-      background-color: #e6f2fa;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 85px;        /* PC固定サイズ */
-      color: rgb(0, 0, 0);
-      margin-bottom: 50px;
-    }
-
-    .btn {
-      font-size: 22px;
-      padding: 12px 24px;
-      margin: 10px;
-      border-radius: 8px;
-      border: 2px solid #2c3e50;
-      background-color: #5fbf70;
-      color: #fff;
-      cursor: pointer;
-      transition: 0.3s;
-      display: inline-block;
-    }
-
-    .btn:hover {
-      background-color: #4ea65e;
-    }
-
-    /* ナビゲーションバーはデフォルト非表示 */
-    .bottom-nav {
-      display: none;
-    }
-
-    /* スマホ用 */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 50px;
-        margin-bottom: auto; /* 上に寄せる */
-        margin-top: 30%;
-      }
-
-      /* PC用ボタンはスマホで非表示 */
-      .btn {
-        display: none;
-      }
-
-      /* スマホ用ナビゲーションバーを表示 */
-      .bottom-nav {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: #dcecf9;
-        justify-content: space-around;
-        align-items: center;
-        border-top: 3px solid #1f5c72;
-        padding: 10px 0;
-      }
-
-      .nav-btn {
-        background: white;
-        border: 2px solid black;
-        border-radius: 12px;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 28px;
-        cursor: pointer;
-      }
-
-      .nav-btn:active {
-        background: #f0f0f0;
-      }
-
-      .plus-btn {
-        font-size: 40px;
-        border: none;
-        background: none;
-        color: #0d3d4f;
-        width: 60px;
-        height: 60px;
-      }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+P+One&display=swap" rel="stylesheet">
 </head>
-<body>
-  <h1>図鑑作成<br>アプリ</h1>
+<body class="fantasy-theme">
+  <div class="main-container">
+    <h1 class="app-title">
+      マイズカンくん
+      <span class="subtitle">〜森の図書館へようこそ〜</span>
+    </h1>
 
-  <!-- PC用ボタン -->
-  <button class="btn" onclick="location.href='/app/create_zukan.html'">＋新規作成</button>
-  <button class="btn" onclick="location.href='/app/zukan_list.html'">図鑑一覧</button>
-
-  <!-- スマホ用ナビゲーションバー -->
-  <div class="bottom-nav">
-    <button class="nav-btn" onclick="location.href='/app/index.html'">🏠</button>
-    <button class="nav-btn" onclick="location.href='/app/zukan_list.html'">📖</button>
-    <button class="nav-btn">👥</button>
-    <button class="plus-btn" onclick="location.href='/app/create_zukan.html'">＋</button>
+    <div class="home-buttons pc-only">
+      <button class="btn btn-create" onclick="location.href='create_zukan.html'">
+        <span class="icon">✨</span><br>
+        新規作成
+      </button>
+      <button class="btn btn-list" onclick="location.href='zukan_list.html'">
+        <span class="icon">📖</span><br>
+        図鑑一覧
+      </button>
+    </div>
   </div>
+
+  <nav class="bottom-nav sp-only">
+    <a href="index.html" class="nav-item">
+      <span class="icon">🏠</span><br>ホーム
+    </a>
+    <a href="zukan_list.html" class="nav-item">
+      <span class="icon">📚</span><br>図鑑一覧
+    </a>
+    <a href="create_zukan.html" class="nav-item plus-item">
+      <span class="icon">➕</span><br>作成
+    </a>
+  </nav>
 </body>
 </html>
