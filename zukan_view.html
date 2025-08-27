@@ -4,16 +4,20 @@
   <meta charset="UTF-8" />
   <title>図鑑を見る</title>
   <link rel="stylesheet" href="style.css" />
-
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+P+One&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="fantasy-theme">
   <header><h1>図鑑の中身</h1></header>
-  <div id="photoList" class="photo-list"></div>
-  <button onclick="location.href='zukan_list.html'">図鑑一覧に戻る</button>
+  <main class="main-container">
+    <div id="photoList" class="photo-list"></div>
+    <button onclick="location.href='zukan_list.html'" class="btn">図鑑一覧に戻る</button>
+  </main>
 
+  <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const zukanId = localStorage.getItem('currentZukanId');
@@ -33,15 +37,16 @@
           card.className = 'photo-card';
           card.innerHTML = `
             <h3>${photo.name}</h3>
-            <p>${photo.description || ''}</p>
-            <img src="${photo.image}" alt="${photo.name}" width="200">
-            <div id="map-${index}" style="height:200px; margin-top:10px;"></div>
-            <button onclick="deletePhoto('${zukanId}', '${photo.id}')">この写真を削除</button>
+            <p>${photo.description || '説明なし'}</p>
+            <img src="${photo.image}" alt="${photo.name}">
+            <div id="map-${index}" class="photo-map-container" style="height:200px;"></div>
+            <button class="btn" onclick="deletePhoto('${zukanId}', '${photo.id}')">この写真を削除</button>
           `;
           photoList.appendChild(card);
 
+          const mapContainer = document.getElementById(`map-${index}`);
           if (photo.lat && photo.lng && photo.showGps) {
-            const map = L.map(`map-${index}`).setView([photo.lat, photo.lng], 13);
+            const map = L.map(mapContainer).setView([photo.lat, photo.lng], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
@@ -50,18 +55,16 @@
               .bindPopup(photo.name || "撮影場所")
               .openPopup();
           } else {
-            document.getElementById(`map-${index}`).innerHTML =
-              "<p style='color:gray;'>位置情報なし</p>";
+            mapContainer.innerHTML = "<p style='color:gray; text-align:center;'>位置情報なし</p>";
           }
         });
       }
     });
 
-    // 写真の削除関数を新しく追加
     function deletePhoto(zukanId, photoId) {
       if (confirm("この写真を削除しますか？")) {
         deletePhotoFromZukan(zukanId, photoId);
-        location.reload(); // ページを再読み込みして更新
+        location.reload();
       }
     }
   </script>
