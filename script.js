@@ -12,12 +12,13 @@ function saveZukans(zukans) {
 }
 
 // 新しい図鑑を追加
-function addZukan(name) {
+function addZukan(name, icon) {
   const zukans = getZukans();
   const newZukan = {
     id: Date.now().toString(),
     name: name,
-    photos: []
+    photos: [],
+    icon: icon // アイコン情報を追加
   };
   zukans.push(newZukan);
   saveZukans(zukans);
