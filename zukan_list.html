@@ -50,18 +50,28 @@
         const item = document.createElement("div");
         item.className = "list-item";
 
-        // 表紙画像を取得 (最初の写真、なければデフォルト画像)
-        const coverImage = zukan.photos && zukan.photos.length > 0 ? zukan.photos[0].image : 'https://placehold.jp/120x120.png?text=No%20Image';
-
-        item.innerHTML = `
-          <img src="${coverImage}" alt="${zukan.name}の表紙" class="cover-image">
-          <h3>${zukan.name}</h3>
-          <div class="item-buttons">
-            <button onclick="viewZukan('${zukan.id}')">🔍 閲覧</button>
-            <button onclick="addPhoto('${zukan.id}')">📷 追加</button>
-            <button onclick="if(confirm('${zukan.name} を削除しますか？')) deleteZukan('${zukan.id}')">🗑 削除</button>
-          </div>
-        `;
+        // アイコン画像が存在するかチェック
+        if (zukan.icon) {
+          item.innerHTML = `
+            <img src="${zukan.icon}" alt="${zukan.name}のアイコン" class="cover-image">
+            <h3>${zukan.name}</h3>
+            <div class="item-buttons">
+              <button onclick="viewZukan('${zukan.id}')">🔍 閲覧</button>
+              <button onclick="addPhoto('${zukan.id}')">📷 追加</button>
+              <button onclick="if(confirm('${zukan.name} を削除しますか？')) deleteZukan('${zukan.id}')">🗑 削除</button>
+            </div>
+          `;
+        } else {
+          item.classList.add('list-item-no-icon');
+          item.innerHTML = `
+            <h3 class="no-icon-name">${zukan.name}</h3>
+            <div class="item-buttons">
+              <button onclick="viewZukan('${zukan.id}')">🔍 閲覧</button>
+              <button onclick="addPhoto('${zukan.id}')">📷 追加</button>
+              <button onclick="if(confirm('${zukan.name} を削除しますか？')) deleteZukan('${zukan.id}')">🗑 削除</button>
+            </div>
+          `;
+        }
 
         container.appendChild(item);
       });
@@ -101,7 +111,6 @@
         }
       });
     }
-
   </script>
 </body>
 </html>
